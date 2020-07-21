@@ -1,6 +1,6 @@
 name: Test temporary files
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   test:
