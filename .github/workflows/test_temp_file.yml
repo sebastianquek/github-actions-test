@@ -1,0 +1,16 @@
+name: Test temporary files
+
+on: [pull_request]
+
+jobs:
+  test:
+    name: Test temporary files
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create temporary file
+        run: |
+          echo line 1 > output.txt
+          echo line 2 >> output.txt
+      - name: Print temporary file
+        run: |
+          cat output.txt
