@@ -13,5 +13,6 @@ jobs:
           node-version: 12.x
       - name: Try to print out env var
         env:
+          NOT_SO_SECRET_VAR: "Quick brown fox... what?"
           SECRET_VAR: ${{ secrets.SECRET_VAR }}
         run: node printEnv.js
