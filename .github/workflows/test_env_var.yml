@@ -1,0 +1,17 @@
+name: Test env var
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Test env var
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Try to print out env var
+        env:
+          SECRET_VAR: ${{ secrets.SECRET_VAR }}
+        run: node printEnv.js
