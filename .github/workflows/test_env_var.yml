@@ -15,4 +15,5 @@ jobs:
         env:
           NOT_SO_SECRET_VAR: "Quick brown fox... what?"
           SECRET_VAR: ${{ secrets.SECRET_VAR }}
+          ANOTHER_VAR: $GITHUB_RUN_NUMBER
         run: node printEnv.js
