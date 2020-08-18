@@ -1,0 +1,16 @@
+name: Test fetch tags
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Test fetch tags
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Fetch Tags
+        run: |
+          git fetch --prune --unshallow --tags
