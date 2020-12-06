@@ -20,9 +20,13 @@ jobs:
       - name: Set tag variables
         id: tags
         run: |
-          MATCHING_TAGS=$(git tag --sort=-version:refname | egrep -o '^prod-[0-9]+\.[0-9]+\.[0-9]+$')
+          MATCHING_TAGS=$(git tag --sort=-version:refname | egrep '^prod-[0-9]+\.[0-9]+\.[0-9]+$')
           echo ::set-output name=latest::$(echo ${MATCHING_TAGS} | sed -n 1p)
           echo ::set-output name=previous::$(echo ${MATCHING_TAGS} | sed -n 2p)
+      - name: Echo tag variables
+        run: |
+          echo ${{ steps.tags.outputs.latest }}
+          echo ${{ steps.tags.outputs.previous }}
       - name: Generate Changelog
         id: changelog
         uses: metcalfc/changelog-generator@v0.4.0
