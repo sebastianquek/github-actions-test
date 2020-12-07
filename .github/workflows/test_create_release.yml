@@ -24,7 +24,7 @@ jobs:
           LATEST_TAG=$(echo ${MATCHING_TAGS} | head -n1)
           PREVIOUS_TAG=$(echo ${MATCHING_TAGS} | tail -n1)
           echo ${MATCHING_TAGS}
-          echo ::set-output name=latest::${LATEST_TAG}
+          echo ::set-output name=latest::$(git tag --sort=-version:refname | grep -m2 -E '^prod-[0-9]+\.[0-9]+\.[0-9]+$' | head -n1)
           echo ::set-output name=previous::${PREVIOUS_TAG}
       - name: Echo tag variables
         run: |
