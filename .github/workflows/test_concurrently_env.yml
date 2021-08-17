@@ -14,6 +14,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
+      - run: npm ci
       - name: Try to print out env var with concurrently lib
         env:
           NOT_SO_SECRET_VAR: "Quick brown fox... what?"
