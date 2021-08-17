@@ -1,0 +1,27 @@
+{
+  "name": "github-actions-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "node handler.test.js",
+    "test:ci": "npx concurrently -s first -k -n sls-offline,test-suite \"NODE_ENV=offline sls offline start\" \"wait-on tcp:3000 && npm run test\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebastianquek/github-actions-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sebastianquek/github-actions-test/issues"
+  },
+  "homepage": "https://github.com/sebastianquek/github-actions-test#readme",
+  "devDependencies": {
+    "serverless": "^2.54.0",
+    "serverless-dotenv-plugin": "^3.9.0",
+    "serverless-offline": "^8.0.0",
+    "supertest": "^6.1.5",
+    "wait-on": "^6.0.0"
+  }
+}
