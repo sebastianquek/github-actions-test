@@ -1,0 +1,22 @@
+name: Test env var with concurrently library
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test env var with concurrently library
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Try to print out env var with concurrently lib
+        env:
+          NOT_SO_SECRET_VAR: "Quick brown fox... what?"
+          SECRET_VAR: ${{ secrets.SECRET_VAR }}
+          ANOTHER_VAR: ${{ github.run_number }}
+        run: concurrently -s first -k \"node printEnv.js\" \"echo ${{ env.SECRET_VAR }}\"",
