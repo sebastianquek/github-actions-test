@@ -19,4 +19,4 @@ jobs:
           NOT_SO_SECRET_VAR: "Quick brown fox... what?"
           SECRET_VAR: ${{ secrets.SECRET_VAR }}
           ANOTHER_VAR: ${{ github.run_number }}
-        run: npx concurrently -s first -k \"node printEnv.js\" \"echo ${{ env.SECRET_VAR }}\"",
+        run: npx concurrently -s first -k \"node printEnv.js\" \"echo ${{ env.SECRET_VAR }}\"
