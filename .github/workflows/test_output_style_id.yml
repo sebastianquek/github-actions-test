@@ -1,14 +1,15 @@
 name: Test output style id
 
 on:
+  push:
   workflow_dispatch:
 
 env:
   NODE_VERSION: "16"
-  MAPBOX_STYLE_ID_DARK_A: ${{ secrets.MAPBOX_STYLE_ID_DARK_A }}
-  MAPBOX_STYLE_ID_DARK_B: ${{ secrets.MAPBOX_STYLE_ID_DARK_B }}
-  MAPBOX_STYLE_ID_LIGHT_A: ${{ secrets.MAPBOX_STYLE_ID_LIGHT_A }}
-  MAPBOX_STYLE_ID_LIGHT_B: ${{ secrets.MAPBOX_STYLE_ID_LIGHT_B }}
+  MAPBOX_STYLE_ID_DARK_A: "DARK_A"
+  MAPBOX_STYLE_ID_DARK_B: "DARK_B"
+  MAPBOX_STYLE_ID_LIGHT_A: "LIGHT_A"
+  MAPBOX_STYLE_ID_LIGHT_B: "LIGHT_B"
 
 jobs:
   init-style-ids:
