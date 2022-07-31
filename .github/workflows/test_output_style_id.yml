@@ -26,7 +26,7 @@ jobs:
         name: "Set outputs"
         run: |
           STYLE_TYPE=$(sed -n 's/REACT_APP_MAPBOX_STYLE_TYPE = "\(.*\)"/\1/p' netlify.toml)
-          if [[ "$STYLE_TYPE == 'A' ]]; then
+          if [[ "$STYLE_TYPE" == 'A' ]]; then
             echo "::set-output name=dark::${{ env.MAPBOX_STYLE_ID_DARK_A }}";
             echo "::set-output name=light::${{ env.MAPBOX_STYLE_ID_LIGHT_A }}";
           else
