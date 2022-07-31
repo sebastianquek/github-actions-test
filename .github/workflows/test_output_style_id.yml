@@ -53,3 +53,5 @@ jobs:
         run: |
           echo ${{ env.MAPBOX_STYLE_ID_DARK }}
           echo ${{ env.MAPBOX_STYLE_ID_LIGHT }}
+          echo ${{ needs.init-style-ids.outputs.dark }}
+          echo ${{ needs.init-style-ids.outputs.light }}
