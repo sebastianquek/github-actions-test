@@ -1,0 +1,30 @@
+name: Test run command on untracked changes
+
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: "16"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    outputs:
+      dark: ${{ steps.set.outputs.dark }}
+      light: ${{ steps.set.outputs.light }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # https://stackoverflow.com/a/3879077
+      # https://stackoverflow.com/q/26568952
+      - name: Toggle style type in netlify.toml if there are new rates
+        run: |
+          git diff-index --quiet HEAD -- || sed -i 's/REACT_APP_MAPBOX_STYLE_TYPE = "A"/REACT_APP_MAPBOX_STYLE_TYPE = "Z"/;s/REACT_APP_MAPBOX_STYLE_TYPE = "B"/REACT_APP_MAPBOX_STYLE_TYPE = "A"/;s/REACT_APP_MAPBOX_STYLE_TYPE = "Z"/REACT_APP_MAPBOX_STYLE_TYPE = "B"/;' netlify.toml
+
+      - name: Log
+        run: |
+          cat netlify.toml
