@@ -12,41 +12,31 @@ env:
   MAPBOX_STYLE_ID_LIGHT_B: "secrets.MAPBOX_STYLE_ID_LIGHT_B"
 
 jobs:
-  init-style-ids:
-    name: "Initialise style ID as outputs"
+  init-style-type:
+    name: "Initialise style type as output"
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
     outputs:
-      dark: ${{ steps.set.outputs.dark }}
-      light: ${{ steps.set.outputs.light }}
+      type: ${{ steps.set.outputs.type }}
 
     steps:
       - uses: actions/checkout@v2
       - id: "set"
-        name: "Set outputs"
         run: |
-          STYLE_TYPE=$(sed -n 's/REACT_APP_MAPBOX_STYLE_TYPE = "\(.*\)"/\1/p' netlify.toml)
-          if [[ "$STYLE_TYPE" == 'A' ]]; then
-            echo "MAPBOX_STYLE_ID_DARK=${{ env.MAPBOX_STYLE_ID_DARK_A }}" >> $GITHUB_ENV
-            echo "MAPBOX_STYLE_ID_LIGHT=${{ env.MAPBOX_STYLE_ID_LIGHT_A }}" >> $GITHUB_ENV
-          else
-            echo "MAPBOX_STYLE_ID_DARK=${{ env.MAPBOX_STYLE_ID_DARK_B }}" >> $GITHUB_ENV
-            echo "MAPBOX_STYLE_ID_LIGHT=${{ env.MAPBOX_STYLE_ID_LIGHT_B }}" >> $GITHUB_ENV
-          fi
+          echo "::set-output name=type::$(sed -n 's/REACT_APP_MAPBOX_STYLE_TYPE = "\(.*\)"/\1/p' netlify.toml)";
 
   test:
     name: Test access output style ids
     runs-on: ubuntu-latest
-    needs: [init-style-ids]
+    needs: [init-style-type]
     timeout-minutes: 5
+
+    env:
+      STYLE_TYPE: ${{ needs.init-style-type.outputs.type }}
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
       - name: Try to print out env vars
         run: |
-          echo ${{ env.MAPBOX_STYLE_ID_DARK }}
-          echo ${{ env.MAPBOX_STYLE_ID_LIGHT }}
+          echo ${{ env.STYLE_TYPE }}
