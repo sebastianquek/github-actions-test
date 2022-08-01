@@ -24,7 +24,8 @@ jobs:
       - uses: actions/checkout@v2
       - id: "set"
         run: |
-          echo "::set-output name=type::$(sed -n 's/REACT_APP_MAPBOX_STYLE_TYPE = "\(.*\)"/\1/p' netlify.toml)";
+          STYLE_TYPE=$(sed -n 's/REACT_APP_MAPBOX_STYLE_TYPE = "\(.*\)"/\1/p' netlify.toml);
+          echo "::set-output name=type::$STYLE_TYPE";
 
   test:
     name: Test
