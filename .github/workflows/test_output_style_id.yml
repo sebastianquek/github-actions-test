@@ -35,7 +35,7 @@ jobs:
     env:
       STYLE_TYPE: ${{ needs.init-style-type.outputs.type }}
 
-    if: env.STYLE_TYPE == 'A'
+    if: ${{ env.STYLE_TYPE == 'A' }}
     steps:
       - uses: actions/checkout@v2
       - name: Try to print out env vars
@@ -51,7 +51,7 @@ jobs:
     env:
       STYLE_TYPE: ${{ needs.init-style-type.outputs.type }}
 
-    if: env.STYLE_TYPE == 'B'
+    if: ${{ env.STYLE_TYPE == 'B' }}
     steps:
       - uses: actions/checkout@v2
       - name: Try to print out env vars
