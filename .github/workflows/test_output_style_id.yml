@@ -26,8 +26,8 @@ jobs:
         run: |
           echo "::set-output name=type::$(sed -n 's/REACT_APP_MAPBOX_STYLE_TYPE = "\(.*\)"/\1/p' netlify.toml)";
 
-  test-a:
-    name: Test A
+  test:
+    name: Test
     runs-on: ubuntu-latest
     needs: [init-style-type]
     timeout-minutes: 5
@@ -35,25 +35,13 @@ jobs:
     env:
       STYLE_TYPE: ${{ needs.init-style-type.outputs.type }}
 
-    if: ${{ env.STYLE_TYPE == 'A' }}
     steps:
       - uses: actions/checkout@v2
-      - name: Try to print out env vars
+      - name: Test A
+        if: ${{ env.STYLE_TYPE == 'A' }}
         run: |
           echo ${{ env.STYLE_TYPE }}
-
-  test-b:
-    name: Test B
-    runs-on: ubuntu-latest
-    needs: [init-style-type]
-    timeout-minutes: 5
-
-    env:
-      STYLE_TYPE: ${{ needs.init-style-type.outputs.type }}
-
-    if: ${{ env.STYLE_TYPE == 'B' }}
-    steps:
-      - uses: actions/checkout@v2
-      - name: Try to print out env vars
+      - name: Test B
+        if: ${{ env.STYLE_TYPE == 'B' }}
         run: |
           echo ${{ env.STYLE_TYPE }}
