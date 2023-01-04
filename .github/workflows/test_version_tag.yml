@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - 'VERSION'
+      - 'version.ts'
 
 jobs:
   release:
@@ -16,7 +16,7 @@ jobs:
 
       - name: Push tag
         run: |
-          VERSION=$(cat VERSION)
+          VERSION=$(cat version.ts | sed 's/.*"\(.*\)".*/\1/')
           echo $VERSION
           git tag $VERSION
           git push origin $VERSION
