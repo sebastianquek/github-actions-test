@@ -16,7 +16,7 @@ jobs:
 
       - name: Push tag
         run: |
-          VERSION=$(cat version.ts | sed 's/.*"\(.*\)".*/\1/')
+          VERSION=$(cat version.ts | sed -n 's/.*"\(.*\)".*/\1/p')
           echo $VERSION
           git tag $VERSION
           git push origin $VERSION
