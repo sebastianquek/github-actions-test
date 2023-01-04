@@ -1,0 +1,23 @@
+name: Test version tag
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'VERSION'
+
+jobs:
+  release:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Push tag
+        run: |
+          VERSION=$(cat VERSION)
+          echo $VERSION
+          git tag $VERSION
+          git push origin $VERSION
+      
